@@ -56,10 +56,12 @@ def build_packages(clone_root, dist_dir):
         os.path.join(clone_root, 'src/common_modules/vsts-cli-code-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-team-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-work-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-ps-common'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-build'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-code'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-team'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-work'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-ps'),
         os.path.join(clone_root, 'src/vsts-cli'),
     ]
 

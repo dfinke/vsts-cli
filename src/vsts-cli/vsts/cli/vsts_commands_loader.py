@@ -12,6 +12,7 @@ from vsts.cli.team.commands import load_team_commands
 from vsts.cli.team.arguments import load_team_arguments
 from vsts.cli.work.commands import load_work_commands
 from vsts.cli.work.arguments import load_work_arguments
+from vsts.cli.ps.commands import load_ps_commands
 
 
 class VstsCommandsLoader(CLICommandsLoader):
@@ -20,6 +21,7 @@ class VstsCommandsLoader(CLICommandsLoader):
         load_code_commands(self)
         load_team_commands(self)
         load_work_commands(self)
+        load_ps_commands(self)
         return super(VstsCommandsLoader, self).load_command_table(args)
 
     def load_arguments(self, command):
