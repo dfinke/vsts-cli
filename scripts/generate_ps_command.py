@@ -25,8 +25,8 @@ class Exporter(json.JSONEncoder):
             return str(o)
 
 parser = argparse.ArgumentParser(description='Command Table Parser')
-parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)')
-parser.add_argument('--params', metavar='N', nargs='+', help='Filter by parameters (OR)')
+parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)') #, default='build')
+parser.add_argument('--params', metavar='N', nargs='+', help='Filter by parameters (OR)') #, default='list')
 args = parser.parse_args()
 cmd_set_names = args.commands
 param_names = args.params
@@ -43,40 +43,55 @@ vstscli = CLI(cli_name=cli_name,
 
 loader = vstscli.commands_loader_cls()
 loader.__init__(vstscli)
-loader.load_command_table([])
+#loader.load_command_table([])
 
-
+cmd_table = loader.load_command_table([])
 for command in loader.command_table:
     loader.load_arguments(command)
 
-
-
-cmd_table = loader.load_command_table([])
 cmd_list = [cmd_name for cmd_name in cmd_table.keys() if cmd_set_names is None or cmd_name.split()[0] in cmd_set_names]
 results = []
 
-if param_names:
-    for name in cmd_list:
-        cmd_name = [x for x in cmd_table.keys() if name == x][0]
-        cmd_args = cmd_table[cmd_name]['arguments']
-        match = False
-        for arg in cmd_args:
-            if match:
-                break
-            arg_name = re.sub('--','', arg['name']).split(' ')[0]
-            if arg_name in param_names:
-                results.append(name)
-                match = True
-else:
-    results = cmd_list
+print('"command","arg"')
+for name in cmd_list:
+    cmd_name = [x for x in cmd_table.keys() if name == x][0]
+    #print(cmd_name)
+    cmd_args = cmd_table[cmd_name].arguments
+    for arg in cmd_args:
+        print('"' + cmd_name + '","' + arg + '"')
+        #print("\t" + arg)
 
-#heading = '=== COMMANDS IN {} PACKAGE(S) WITH {} PARAMETERS ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
-#heading = '=== PowerShell Time ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
-#print('\n{}\n'.format(heading))
-print('\n'.join(results))
+#print('\n'.join(cmd_list))
 
-# print(results)
-#print(results)
 
-#print(cmd_table['build list']['arguments'])
-#print(cmd_table.keys())
+
+# if param_names:
+#     for name in cmd_list:
+#         cmd_name = [x for x in cmd_table.keys() if name == x][0]
+#         cmd_args = cmd_table[cmd_name].arguments
+#         match = False
+#         for arg in cmd_args:
+#             if match:
+#                 break
+#             arg_name = re.sub('--','', arg['name']).split(' ')[0]
+#             if arg_name in param_names:
+#                 results.append(name)
+#                 match = True
+# else:
+#     results = cmd_list
+
+# heading = '=== COMMANDS IN {} PACKAGE(S) WITH {} PARAMETERS ==='.format(
+#     cmd_set_names or 'ANY', param_names or 'ANY')
+# print('\n{}\n'.format(heading))
+# print('\n'.join(results))
+
+# #heading = '=== COMMANDS IN {} PACKAGE(S) WITH {} PARAMETERS ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
+# #heading = '=== PowerShell Time ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
+# #print('\n{}\n'.format(heading))
+# # print('\n'.join(results))
+
+# # print(results)
+# #print(results)
+
+# #print(cmd_table['build list']['arguments'])
+# #print(cmd_table.keys())
