@@ -69,3 +69,5 @@ $($params)
         $transpile
     }
 }
+
+ConvertTo-PSFunction -SaveToPSM1
