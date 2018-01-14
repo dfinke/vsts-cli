@@ -1,13 +1,5 @@
-# --------------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for license information.
-# --------------------------------------------------------------------------------------------
-
 from __future__ import print_function
 
-# import argparse
-# import json
-# import re
 import sys
 import os
 
@@ -15,26 +7,8 @@ from knack import CLI
 from vsts.cli.vsts_cli_help import VstsCLIHelp
 from vsts.cli.vsts_commands_loader import VstsCommandsLoader
 
-# class Exporter(json.JSONEncoder):
-
-#     def default(self, o):#pylint: disable=method-hidden
-#         try:
-#             return super(Exporter, self).default(o)
-#         except TypeError:
-#             return str(o)
-
-# parser = argparse.ArgumentParser(description='Command Table Parser')
-# parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)') #, default='build')
-# parser.add_argument('--params', metavar='N', nargs='+', help='Filter by parameters (OR)') #, default='list')
-# args = parser.parse_args()
-# cmd_set_names = args.commands
-# param_names = args.params
-
 cmd_set_names = None
 param_names = None
-
-# ignore the params passed in now so they aren't used by the cli
-sys.argv = sys.argv[:1]
 
 cli_name = "vsts"
 vstscli = CLI(cli_name=cli_name,
@@ -57,43 +31,6 @@ results = []
 print('"command","arg"')
 for name in cmd_list:
     cmd_name = [x for x in cmd_table.keys() if name == x][0]
-    #print(cmd_name)
     cmd_args = cmd_table[cmd_name].arguments
     for arg in cmd_args:
         print('"' + cmd_name + '","' + arg + '"')
-        #print("\t" + arg)
-
-#print('\n'.join(cmd_list))
-
-
-
-# if param_names:
-#     for name in cmd_list:
-#         cmd_name = [x for x in cmd_table.keys() if name == x][0]
-#         cmd_args = cmd_table[cmd_name].arguments
-#         match = False
-#         for arg in cmd_args:
-#             if match:
-#                 break
-#             arg_name = re.sub('--','', arg['name']).split(' ')[0]
-#             if arg_name in param_names:
-#                 results.append(name)
-#                 match = True
-# else:
-#     results = cmd_list
-
-# heading = '=== COMMANDS IN {} PACKAGE(S) WITH {} PARAMETERS ==='.format(
-#     cmd_set_names or 'ANY', param_names or 'ANY')
-# print('\n{}\n'.format(heading))
-# print('\n'.join(results))
-
-# #heading = '=== COMMANDS IN {} PACKAGE(S) WITH {} PARAMETERS ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
-# #heading = '=== PowerShell Time ==='.format(cmd_set_names or 'ANY', param_names or 'ANY')
-# #print('\n{}\n'.format(heading))
-# # print('\n'.join(results))
-
-# # print(results)
-# #print(results)
-
-# #print(cmd_table['build list']['arguments'])
-# #print(cmd_table.keys())
