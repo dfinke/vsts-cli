@@ -45,7 +45,7 @@ function ConvertTo-PSFunction {
         if ($record.DoConvertFromJson) {
             $targetExpression = "(vsts $($record.name) --output json | ConvertFrom-Json)"
         }
-        $params = "`t$" + (($record.group.arg | Sort-Object) -join ",`n`t$")
+        $params = "`t`t$" + (($record.group.arg | Sort-Object) -join ",`n`t`t$")
 
         @"
 function $($record.FunctionName) {
