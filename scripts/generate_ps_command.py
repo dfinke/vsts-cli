@@ -5,12 +5,11 @@
 
 from __future__ import print_function
 
-import argparse
-import json
-import re
+# import argparse
+# import json
+# import re
 import sys
 import os
-
 
 from knack import CLI
 from vsts.cli.vsts_cli_help import VstsCLIHelp
