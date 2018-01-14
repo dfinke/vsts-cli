@@ -24,12 +24,15 @@ class Exporter(json.JSONEncoder):
         except TypeError:
             return str(o)
 
-parser = argparse.ArgumentParser(description='Command Table Parser')
-parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)') #, default='build')
-parser.add_argument('--params', metavar='N', nargs='+', help='Filter by parameters (OR)') #, default='list')
-args = parser.parse_args()
-cmd_set_names = args.commands
-param_names = args.params
+# parser = argparse.ArgumentParser(description='Command Table Parser')
+# parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)') #, default='build')
+# parser.add_argument('--params', metavar='N', nargs='+', help='Filter by parameters (OR)') #, default='list')
+# args = parser.parse_args()
+# cmd_set_names = args.commands
+# param_names = args.params
+
+cmd_set_names = None
+param_names = None
 
 # ignore the params passed in now so they aren't used by the cli
 sys.argv = sys.argv[:1]
