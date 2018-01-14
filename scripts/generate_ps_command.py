@@ -16,13 +16,13 @@ from knack import CLI
 from vsts.cli.vsts_cli_help import VstsCLIHelp
 from vsts.cli.vsts_commands_loader import VstsCommandsLoader
 
-class Exporter(json.JSONEncoder):
+# class Exporter(json.JSONEncoder):
 
-    def default(self, o):#pylint: disable=method-hidden
-        try:
-            return super(Exporter, self).default(o)
-        except TypeError:
-            return str(o)
+#     def default(self, o):#pylint: disable=method-hidden
+#         try:
+#             return super(Exporter, self).default(o)
+#         except TypeError:
+#             return str(o)
 
 # parser = argparse.ArgumentParser(description='Command Table Parser')
 # parser.add_argument('--commands', metavar='N', nargs='+', help='Filter by first level command (OR)') #, default='build')
