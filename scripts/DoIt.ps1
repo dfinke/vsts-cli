@@ -1,5 +1,17 @@
-﻿function Invoke-UpperCaseFirstLetter {
+﻿$verbMap = @{
+    "Create"     = "New"
+    "List"       = "Get"
+    "Abandon"    = "Disable"
+    "Queue"      = "Start"
+    "Reactivate" = "Enable"
+    "Query"      = "Find"
+}
+function Invoke-UpperCaseFirstLetter {
     param([string]$target)
+
+    if ($verbMap.ContainsKey($target)) {
+        $target = $verbMap.$target
+    }
 
     $target.Substring(0, 1).ToUpper() + $target.Substring(1)
 }
@@ -49,6 +61,7 @@ function ConvertTo-PSFunction {
 
         @"
 function $($record.FunctionName) {
+    [CmdletBinding()]
     param(
 $($params)
     )
@@ -59,13 +72,15 @@ $($params)
 "@
     }
 
-    if($Evaluate) {
+    if ($Evaluate) {
         $transpile | Invoke-Expression
-    } elseif($SaveToPSM1) {
+    }
+    elseif ($SaveToPSM1) {
         $fileName = "$pwd\vstsPS.psm1"
         $transpile | Set-Content $fileName
         Write-Verbose "Saved to $($fileName)"
-    } else {
+    }
+    else {
         $transpile
     }
 }
